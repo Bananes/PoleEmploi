@@ -17,9 +17,18 @@ input, select{
 	padding: 5px 20px;
 }
 
-#form > form > label{
+.flex{
 	display: flex;
 	justify-content: space-between;
+}
+
+/*
+
+FORM
+
+*/
+
+#form > form > label{
 	margin-bottom: 25px;
 }
 
@@ -34,4 +43,47 @@ input, select{
 
 #form > form > input[type="submit"]{
 	float: right;
+}
+
+/*
+
+SEARCH
+
+*/
+
+#search{
+	height: 100%;
+	width: 90%;
+	margin-top: 50px;
+}
+
+#search > #input{
+	margin-bottom: 50px;
+}
+
+#search > #input > form{
+	width: 100%;
+}
+
+#search > #input > form > input{
+	flex-grow: 0.7;
+}
+
+#search > #input > form > input[type="submit"]{
+	flex-grow: 0.2;
+}
+
+#search > #list > div{
+	border: solid black 1px;
+	margin-bottom: 15px;
+	padding: 5px;
+}
+
+#search > #list > div > *{
+	margin-bottom:  10px;
+}
+
+#search > #list > div > *.description{
+	max-height: 100px;
+	overflow-y: auto;
 }

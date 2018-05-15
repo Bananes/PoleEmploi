@@ -1,13 +1,13 @@
 <div id="form">
   <form method="get">
-    <label><span>Nom</span><input type="text" name="nom"/></label>
-    <label><span>Prénom</span><input type="text" name="prenom"/></label>
-    <label><span>Age</span><input type="number" min="18" name="age"/></label>
-    <label><span>Date de naissance</span><input type="date" name="dateDeNaissance"/></label>
-    <label><span>Code banquaire</span><input type="number" min="0" name="codeBanquaire"/></label>
-    <label><span>Date de validation</span><input type="date" name="dateValidation"/></label>
-    <label><span>Code secret</span><input type="text" pattern="\d{3}" title="Trois chiffres" name="codeSecret"/></label>
-    <label><span>Lieu de  naissance</span><select required name="lieuDeNaissance">
+    <label class="flex"><span>Nom</span><input type="text" name="nom"/></label>
+    <label class="flex"><span>Prénom</span><input type="text" name="prenom"/></label>
+    <label class="flex"><span>Age</span><input type="number" min="18" name="age"/></label>
+    <label class="flex"><span>Date de naissance</span><input type="date" name="dateDeNaissance"/></label>
+    <label class="flex"><span>Code banquaire</span><input type="number" min="0" name="codeBanquaire"/></label>
+    <label class="flex"><span>Date de validation</span><input type="date" name="dateValidation"/></label>
+    <label class="flex"><span>Code secret</span><input type="text" pattern="\d{3}" title="Trois chiffres" name="codeSecret"/></label>
+    <label class="flex"><span>Lieu de  naissance</span><select required name="lieuDeNaissance">
 		<option></option>
 		<option>Nantes</option>
 		<option>Bordeaux</option>
@@ -18,7 +18,7 @@
 		<option>Montpellier</option>
 		<option>Paris</option>
 	</select></label>
-    <label><span>Sexe</span>
+    <label class="flex"><span>Sexe</span>
 		<div>Mâle<input type="radio" name="sexe" value="M"/></div>
 		<div>Femelle<input type="radio" name="sexe" value="F"/></div>
 	</label>
