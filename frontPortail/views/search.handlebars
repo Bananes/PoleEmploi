@@ -1,0 +1,18 @@
+<div id="search">
+	<div id="input">
+		<form method="post" action="search">
+			<input type="text"/>
+		</form>
+	</div>
+	<div id="list">
+		{{#each results}}
+		<div>
+			<div class="title">{{this.title}}</div>
+			<div class="description">
+				<div class="text">{{this.description}}</div>
+				<div class="rating">{{this.rating}} / 10</div>
+			</div>
+		</div>
+		{{/each}}
+	</div>
+</div>

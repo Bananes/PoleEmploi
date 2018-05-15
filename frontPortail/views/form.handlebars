@@ -4,10 +4,11 @@
     <label><span>Prénom</span><input type="text" name="prenom"/></label>
     <label><span>Age</span><input type="number" min="18" name="age"/></label>
     <label><span>Date de naissance</span><input type="date" name="dateDeNaissance"/></label>
-    <label><span>Code banquaire</span><input type="number" name="codeBanquaire"/></label>
+    <label><span>Code banquaire</span><input type="number" min="0" name="codeBanquaire"/></label>
     <label><span>Date de validation</span><input type="date" name="dateValidation"/></label>
-    <label><span>Code secret</span><input type="number" pattern="\d{3}" name="codeSecret"/></label>
-    <label><span>Lieu de  naissance</span><select name="lieuDeNaissance">
+    <label><span>Code secret</span><input type="text" pattern="\d{3}" title="Trois chiffres" name="codeSecret"/></label>
+    <label><span>Lieu de  naissance</span><select required name="lieuDeNaissance">
+		<option></option>
 		<option>Nantes</option>
 		<option>Bordeaux</option>
 		<option>Brest</option>
