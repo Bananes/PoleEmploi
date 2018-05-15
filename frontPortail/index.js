@@ -15,4 +15,8 @@ app.get('/', function (req, res) {
   res.render('home')
 })
 
+app.get('/form', function (req, res) {
+  res.render('form')
+})
+
 app.listen(3000)
