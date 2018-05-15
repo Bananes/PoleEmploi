@@ -1,4 +1,4 @@
-package com.poleemploi.back;
+package com.poleemploi.back.spring;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
