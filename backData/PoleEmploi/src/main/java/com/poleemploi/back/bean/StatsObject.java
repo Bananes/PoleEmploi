@@ -1,5 +1,9 @@
 package com.poleemploi.back.bean;
 
-public class StatsObject {
+import javax.persistence.Entity;
+
+@Entity
+public class StatsObject{
+	
 
 }

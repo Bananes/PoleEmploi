@@ -39,7 +39,7 @@ public class StatsService {
 	}
 	
 	private void persistStats(StatsPage statsPage) {
-		dao.persistStats(convertStatsPageToStatsObject(statsPage));		
+		dao.save(convertStatsPageToStatsObject(statsPage));		
 	}
 
 	private void processErrorList(List<Info> listInfos,String id) {
@@ -78,7 +78,10 @@ public class StatsService {
 	}
 	
 	private StatsObject convertStatsPageToStatsObject(StatsPage statsPage){
-		// to implement
+		// TODO : implement
+		statsPage.getId();
+		statsPage.getInfos();
+		statsPage.getPage();
 		return new StatsObject();
 		
 	}
