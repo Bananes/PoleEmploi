@@ -49,7 +49,12 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-105">
               <caret line="10" column="4" lean-forward="false" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
-              <folding />
+              <folding>
+                <element signature="e#575#610#0" expanded="true" />
+                <element signature="e#645#680#0" expanded="true" />
+                <element signature="e#714#747#0" expanded="true" />
+                <element signature="e#769#789#0" expanded="true" />
+              </folding>
             </state>
           </provider>
           <provider editor-type-id="android-designer2">
@@ -2477,7 +2482,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-105">
           <caret line="10" column="4" lean-forward="false" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
-          <folding />
+          <folding>
+            <element signature="e#575#610#0" expanded="true" />
+            <element signature="e#645#680#0" expanded="true" />
+            <element signature="e#714#747#0" expanded="true" />
+            <element signature="e#769#789#0" expanded="true" />
+          </folding>
         </state>
       </provider>
       <provider editor-type-id="android-designer2">
