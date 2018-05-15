@@ -4,11 +4,7 @@ html, body, #main{
 	margin: 0;
 }
 
-#main {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	
+#main{
 	font-size: 22px;
 }
 
@@ -17,10 +13,79 @@ input, select{
 	padding: 5px 20px;
 }
 
-.flex{
+[class*=flex]{
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
 }
+
+.flex-column{
+	flex-direction: column;
+	height: 100%;
+}
+
+.flex-column > *{
+	width: 100%;
+	text-align: center;
+}
+
+.flex-center{
+	justify-content: center;
+	align-items: center;
+}
+
+/*
+
+HELPER
+
+*/
+
+#helper{
+	position: absolute;
+	padding: 5px;
+	border: solid black 1px;
+	border-radius: 10px;
+	left: 0;
+	transition: .4s;
+}
+
+#helper > * {
+	height: 100%;
+}
+
+#helper.small{
+    bottom: calc(50% - 25px); /* because container is 50px height */
+	width: 50px;
+	height: 50px;
+}
+
+#helper.large{
+    /*bottom: calc(50% - 125px);*/ /* because container is 350px height */
+	bottom: 0;
+	
+	width: 250px;
+	height: 250px;
+}
+
+#helper.large > div.close{
+	float: right;
+}
+
+#helper.small > div.close{
+	display: none;
+}
+
+#helper.small > div.small{
+}
+#helper.small > div.large{
+	display: none;
+}
+
+#helper.large > div.large{
+}
+#helper.large > div.small{
+	display: none;
+}
+
 
 /*
 
@@ -52,7 +117,7 @@ SEARCH
 */
 
 #search{
-	height: 100%;
+	height: calc(100% - 50px);
 	width: 90%;
 	margin-top: 50px;
 }
