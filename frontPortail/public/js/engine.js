@@ -24,7 +24,7 @@ document.addEventListener('mousemove', (event) => {
 	const speed = Math.sqrt(movementX**2 + movementY**2) * modelTime / (newMoveTime - lastMoveTime)
 	if(newMoveTime - lastAverageTime > modelAvgTime && averageElements.length !== 0){
 		lastAverageTime = newMoveTime
-		const avg = Math.round(averageElements.reduce((t,c) => t + c) / averageElements.length)
+		const avg = Math.round(avgNumberList(averageElements))
 		averageElements = []
 		averageList = [...averageList.reverse().filter((v,i) => i < modelAvgList - 1).reverse(), avg]
 		console.debug('speed', averageList)
@@ -48,8 +48,8 @@ document.addEventListener('click', (event) => {
 	if(newClickTime - lastClickLoopTime > modelClickTime * 1000){
 		clickElements = [...clickElements.reverse().filter((v,i) => i < modelClickList - 1).reverse(), 0]
 		lastClickLoopTime = newClickTime
+		console.debug('click',  clickElements)
 	}
-	console.debug('click',  clickElements)
 })
 
 /*
@@ -88,3 +88,47 @@ document.querySelectorAll('a:not([href^="#"]), input[type="submit"], button[type
 	const executionTime = getTime() - pageLoadedTime
 	console.debug('page_exit', executionTime)
 }))
+
+/*
+===================
+	LOGC & SENDING DATA
+===================
+*/
+
+const sendData = (idUser, infos) => {
+	const page = window.location.href
+	const data = {
+		id: idUser,
+		page: page,
+		infos: infos
+	}
+	axios.post(BACK_ENDPOINT, data).catch((ex) => console.error(ex))
+}
+
+const checkingInterval = 10 // s
+
+const modelAvgResetTime = 10 // s
+const modelClickResetTime = 10 //s
+
+setInterval(() => {
+	const actualTime = getTime()
+	if(actualTime - lastAverageTime > modelAvgResetTime*1000){
+		averageElements = []
+		averageList = []
+	}
+	if(actualTime - lastClickLoopTime > modelClickResetTime * 1000){
+		clickElements = []
+	}
+
+	
+	mouseMovementAverage = avgNumberList(averageList)
+	clickAverage = avgNumberList(clickElements)
+	console.log(mouseMovementAverage+"px / "+modelTime+"ms")
+	console.log(clickAverage+" click(s) / "+modelClickTime+"s")
+	console.log(((getTime() - pageLoadedTime)/1000)+"s")
+}, checkingInterval * 1000)
+
+
+
+
+

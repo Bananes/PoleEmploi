@@ -5,13 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "node node_modules/standard/bin/cmd.js",
-	"start": "node index.js",
-	"fix": "node node_modules/standard/bin/cmd.js --fix"
+    "start": "node index.js",
+    "fix": "node node_modules/standard/bin/cmd.js --fix"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "dotenv": "^5.0.1",
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0"
   },

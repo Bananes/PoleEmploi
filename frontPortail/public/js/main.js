@@ -16,6 +16,8 @@ const showHelp = () => {
   div.classList.add('open')
 }
 
+const avgNumberList = (list) => list && list.length ? list.reduce((t,v) => t + v,  0) / list.length : 0
+
 document.querySelectorAll('input:not([name])', 'select:not([name])').forEach(input => {
 	input.name = input.id
 })

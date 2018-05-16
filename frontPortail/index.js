@@ -1,13 +1,21 @@
+require('dotenv').config()
+const {BACK_ENDPOINT} = process.env
+
+if(!BACK_ENDPOINT){
+	throw "BACK_ENDPOINT env variable not set"
+}
+
 const express = require('express')
 const exphbs = require('express-handlebars')
 var bodyParser = require('body-parser')
 
 const app = express()
-app.use(bodyParser.json({ type: 'application/*+json' }))
-app.use(bodyParser.text({ type: 'text/html' }))
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.json())
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
+app.set('BACK_ENDPOINT', BACK_ENDPOINT)
 
 app.use(express.static('public'))
 
@@ -59,4 +67,8 @@ app.post('/search', (req, res) => {
   res.render('search', {results})
 })
 
+app.post('/test', (req, res) => {
+	console.log(req.body)
+	res.send(req.body)
+})
 app.listen(3000)
