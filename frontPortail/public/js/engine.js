@@ -95,13 +95,17 @@ document.querySelectorAll('a:not([href^="#"]), input[type="submit"], button[type
 ===================
 */
 
-const sendData = (idUser, infos) => {
+const sendData = () => {
+	const idUser = "ID"
 	const page = window.location.href
+	const infos = []
+	
 	const data = {
 		id: idUser,
 		page: page,
 		infos: infos
 	}
+	
 	axios.post(BACK_ENDPOINT, data).catch((ex) => console.error(ex))
 }
 
@@ -123,9 +127,12 @@ setInterval(() => {
 	
 	mouseMovementAverage = avgNumberList(averageList)
 	clickAverage = avgNumberList(clickElements)
+	
 	console.log(mouseMovementAverage+"px / "+modelTime+"ms")
 	console.log(clickAverage+" click(s) / "+modelClickTime+"s")
 	console.log(((getTime() - pageLoadedTime)/1000)+"s")
+	
+	
 }, checkingInterval * 1000)
 
 

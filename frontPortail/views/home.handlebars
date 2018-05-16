@@ -4,6 +4,7 @@
 	<div><h3><ul>
 		<li><a href="/form">Formulaire</a></li>
 		<li><a href="/search">Recherche</a></li>
+		<li><a href="#">Local</a></li>
 	<ul></h3></div>
 </div>
 <div id="speed"></div>
@@ -13,7 +14,75 @@
 	<input id="text" type="text" required/>
 	<input id="date" type="date" />
 	<input id="pattern" type="text" pattern="\d*" required/>
-	<input type="submit"/>
+	
+<p>
+<label>Name
+<input type="text" name="customer_name" required>
+</label> 
+</p>
+
+<p>
+<label>Phone 
+<input type="tel" name="phone_number">
+</label>
+</p>
+
+<p>
+<label>Email 
+<input type="email" name="email_address">
+</label>
+</p>
+
+<fieldset>
+<legend>Which taxi do you require?</legend>
+<p><label> <input type="radio" name="taxi" required value="car"/><span>Car</span></label></p>
+<p><label> <input type="radio" name="taxi" required value="van"/><span>Van</span></label></p>
+<p><label> <input type="radio" name="taxi" required value="tuktuk"/><span>Tuk Tuk</span></label></p>
+</fieldset>
+
+<fieldset>
+<legend>Extras</legend>
+<p><label> <input type="checkbox" class="filled-in" name="extras" value="baby"/><span>Baby Seat</span></label></p>
+<p><label> <input type="checkbox" class="filled-in" name="extras" value="wheelchair"/><span> Wheelchair Access</span></label></p>
+<p><label> <input type="checkbox" class="filled-in" name="extras" value="tip"/><span> Stock Tip</span></label></p>
+</fieldset>
+
+<p>
+<label>Pickup Date/Time
+<input type="date" name="pickup_time" required>
+</label>
+</p>
+	
+<p>
+<label>Pickup Place
+<select id="pickup_place" name="pickup_place">
+<option value="" selected="selected">Select One</option>
+<option value="office" >Taxi Office</option>
+<option value="town_hall" >Town Hall</option>
+<option value="telepathy" >We'll Guess!</option>
+</select>
+</label> 
+</p>
+
+<p>
+<label>Dropoff Place
+<input type="text" name="dropoff_place" required list="destinations">
+</label>
+
+<datalist id="destinations">
+<option value="Airport">
+<option value="Beach">
+<option value="Fred Flinstone's House">
+</datalist>
+</p>
+
+<p>
+<label>Special Instructions
+<textarea class="materialize-textarea" name="comments" maxlength="500"></textarea>
+</label>
+</p>
+
+	<input class="btn" type="submit"/>
 </form>
 
 <div id="helper" class="large">
