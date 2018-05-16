@@ -1,27 +1,79 @@
-<div id="form">
-  <form method="get">
-    <label class="flex"><span>Nom</span><input type="text" name="nom"/></label>
-    <label class="flex"><span>Prénom</span><input type="text" name="prenom"/></label>
-    <label class="flex"><span>Age</span><input type="number" min="18" name="age"/></label>
-    <label class="flex"><span>Date de naissance</span><input type="date" name="dateDeNaissance"/></label>
-    <label class="flex"><span>Code banquaire</span><input type="number" min="0" name="codeBanquaire"/></label>
-    <label class="flex"><span>Date de validation</span><input type="date" name="dateValidation"/></label>
-    <label class="flex"><span>Code secret</span><input type="text" pattern="\d{3}" title="Trois chiffres" name="codeSecret"/></label>
-    <label class="flex"><span>Lieu de  naissance</span><select required name="lieuDeNaissance">
-		<option></option>
-		<option>Nantes</option>
-		<option>Bordeaux</option>
-		<option>Brest</option>
-		<option>Grenoble</option>
-		<option>Lille</option>
-		<option>Lyon</option>
-		<option>Montpellier</option>
-		<option>Paris</option>
-	</select></label>
-    <label class="flex"><span>Sexe</span>
-		<div>Mâle<input type="radio" name="sexe" value="M"/></div>
-		<div>Femelle<input type="radio" name="sexe" value="F"/></div>
-	</label>
-    </span><input type="submit" value="Valider"/>
-  </form>
+<div id="form" class="row">
+	<form method="get" class="col s12">
+		<div class="row">
+			<div class="input-field col s6">
+			  <input placeholder="Insérez votre nom" id="nom" type="text" class="validate">
+			  <label for="nom">Nom</label>
+			</div>
+			<div class="input-field col s6">
+			  <input placeholder="Insérez votre prénom" id="prenom" type="text" class="validate">
+			  <label for="prenom">Prénom</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s12">
+			  <input placeholder="Insérez votre date de naissance" id="dateDeNaissance" type="text" class="datepicker validate">
+			  <label for="dateDeNaissance">Date de naissance</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s12">
+			  <input placeholder="Insérez votre numéro de carte banquaire" id="codeBanquaire" type="text" class="validate">
+			  <label for="codeBanquaire">Code banquaire</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s6">
+			  <input placeholder="Insérez la date de validité" id="dateValidite" type="text" class="validate">
+			  <label for="dateValidite">Date de validité</label>
+			</div>
+			<div class="input-field col s6">
+			  <input placeholder="Insérez votre code secret" id="codeSecret" type="text" class="validate">
+			  <label for="codeSecret">Code secret</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s12">
+				<select name="lieuDeNaissance" required id="lieuDeNaissance">
+					<option>Nantes</option>
+					<option>Bordeaux</option>
+					<option>Brest</option>
+					<option>Grenoble</option>
+					<option>Lille</option>
+					<option>Lyon</option>
+					<option>Montpellier</option>
+					<option>Paris</option>
+				</select>
+				<label  for="lieuDeNaissance">Lieu de  naissance</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s12 align-center">
+				<label>Sexe</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s6">
 
+				<label>
+					<input name="sexe" type="radio" value="M"/>
+					<span>Mâle</span>
+				</label>
+			</div>
+			<div class="input-field col s6">
+				<label>
+					<input name="sexe" type="radio" value="F"/>
+					<span>Femelle</span>
+				</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s6 push-s6">
+				<button class="btn waves-effect waves-light" type="submit">
+					S'inscrire
+					<i class="material-icons right">send</i>
+				</button>
+			</div>
+		<div>
+	</form>
+</div>	

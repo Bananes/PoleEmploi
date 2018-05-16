@@ -15,3 +15,9 @@ const showHelp = () => {
   const div = document.getElementById('helper-container')
   div.classList.add('open')
 }
+
+document.querySelectorAll('input:not([name])', 'select:not([name])').forEach(input => {
+	input.name = input.id
+})
+
+M.AutoInit();
