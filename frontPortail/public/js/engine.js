@@ -40,9 +40,9 @@ document.addEventListener('click', (event) => {
 
 let errorsList = {}
 document.querySelectorAll('form input:not([type=submit])', 'form select').forEach(i => i.addEventListener('invalid', (event) => {
-	const form = event.path.find(e => e.tagName === 'FORM')
+	const form = event.target.parentElement.tagName === 'FORM' && event.target.parentElement
 	const idForm = form.id + "_" + (form.method || 'GET') + '_' + form.action
-	const idElement = event.path[0].id|| event.path[0].name
+	const idElement = event.target.id|| event.target.name
 	if(idElement){
 		if(errorsList[idForm] === undefined){
 			errorsList[idForm] = {}
@@ -51,7 +51,7 @@ document.querySelectorAll('form input:not([type=submit])', 'form select').forEac
 			errorsList[idForm][idElement] = 0
 		}
 		
-		errorsList[idForm][idElement] = errorsList[idForm][idElement] + 1
+		errorsList[idForm][idElement] = errorsList[idForm][idElement] +1
 		document.getElementById('errors').innerHTML = JSON.stringify(errorsList)
 	}
 	else{
