@@ -23,8 +23,8 @@ document.addEventListener('mousemove', (event) => {
 	document.getElementById('speed').innerHTML =  Math.round(speed) + "px / " + modelTime + "ms <br/>" + JSON.stringify(averageList)
 })
 
-const modelClickTime = 5 // s
-const modelClickList = 3 // elements
+const modelClickTime = 2 // s
+const modelClickList = 10 // elements
 let lastClickLoopTime = actualTime()
 let clickElements = [0]
 
@@ -38,3 +38,23 @@ document.addEventListener('click', (event) => {
 	document.getElementById('click').innerHTML = JSON.stringify(clickElements)
 })
 
+let errorsList = {}
+document.querySelectorAll('form input:not([type=submit])', 'form select').forEach(i => i.addEventListener('invalid', (event) => {
+	const form = event.path.find(e => e.tagName === 'FORM')
+	const idForm = form.id + "_" + (form.method || 'GET') + '_' + form.action
+	const idElement = event.path[0].id|| event.path[0].name
+	if(idElement){
+		if(errorsList[idForm] === undefined){
+			errorsList[idForm] = {}
+		}
+		if(errorsList[idForm][idElement] === undefined){
+			errorsList[idForm][idElement] = 0
+		}
+		
+		errorsList[idForm][idElement] = errorsList[idForm][idElement] + 1
+		document.getElementById('errors').innerHTML = JSON.stringify(errorsList)
+	}
+	else{
+		throw "No id or name on a field"
+	}
+}))
