@@ -1,4 +1,5 @@
 package com.poleemploi.back.service;
+
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
@@ -18,37 +19,38 @@ public class ClientSocket implements Runnable {
 	public ClientSocket(Socket pSock) {
 		sock = pSock;
 	}
-	
-	public void addAlertToSend(JSONObject alert){
+
+	public void addAlertToSend(JSONObject alert) {
 		toSendAlerts.add(alert);
 	}
 
 	public void run() {
+		try {
 
-		boolean closeConnexion = false;
-		while (!sock.isClosed()) {
-
-			try {
+			boolean closeConnexion = false;
+			writer = new OutputStreamWriter(sock.getOutputStream(), StandardCharsets.UTF_8);
+			
+			while (!sock.isClosed()) {
 				JSONObject toSend;
-				writer = new OutputStreamWriter(sock.getOutputStream(),StandardCharsets.UTF_8);
-				
-				toSend = toSendAlerts.get(0);
-				toSendAlerts.remove(toSend);
+				if (toSendAlerts.size() > 0) {
+					toSend = toSendAlerts.get(0);
+					toSendAlerts.remove(0);
+					writer.write(toSend.toString()+"\n");
+					writer.flush();
 
-				writer.write(toSend.toString());
-				writer.flush();
-
-				if (closeConnexion) {
-					writer = null;
-					sock.close();
-					break;
+					if (closeConnexion) {
+						writer = null;
+						sock.close();
+						break;
+					}
 				}
-			} catch (SocketException e) {
-				break;
-			} catch (IOException e) {
-				e.printStackTrace();
 			}
+		} catch (SocketException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+
 	}
 
 }

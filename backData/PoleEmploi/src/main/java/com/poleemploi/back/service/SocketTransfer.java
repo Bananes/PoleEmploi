@@ -21,6 +21,7 @@ public class SocketTransfer extends Thread {
 	public SocketTransfer() {
 		try {
 			server = new ServerSocket(port);
+			open();
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -36,8 +37,9 @@ public class SocketTransfer extends Thread {
 
 					try {
 						Socket client = server.accept();
-
-						Thread t = new Thread(new ClientSocket(client));
+						ClientSocket clientSock = new ClientSocket(client);
+						clientList.add(clientSock);
+						Thread t = new Thread(clientSock);
 						t.start();
 
 					} catch (IOException e) {
