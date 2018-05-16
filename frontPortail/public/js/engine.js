@@ -1,3 +1,13 @@
+/*
+===================
+	STATISTICS
+===================
+*/
+
+/*
+	MOUSE SPEED
+*/
+
 const modelTime = 250 // ms
 const modelAvgTime = 2000 // ms
 const modelAvgList = 10 // elements => list of (modelAvgList * modelAvgTime) ms of speed records
@@ -23,6 +33,10 @@ document.addEventListener('mousemove', (event) => {
 	lastMoveTime = newMoveTime
 })
 
+/*
+	CLICK
+*/
+
 const modelClickTime = 2 // s
 const modelClickList = 10 // elements
 let lastClickLoopTime = actualTime()
@@ -38,8 +52,12 @@ document.addEventListener('click', (event) => {
 	console.debug('click',  clickElements)
 })
 
+/*
+	FORM ERRORS
+*/
+
 let errorsList = {}
-document.querySelectorAll('form input:not([type=submit])', 'form select').forEach(i => i.addEventListener('invalid', (event) => {
+document.querySelectorAll('form input:not([type=submit]), form select').forEach(i => i.addEventListener('invalid', (event) => {
 	const form = event.target.parentElement.tagName === 'FORM' && event.target.parentElement
 	const idForm = form.id + "_" + (form.method || 'GET') + '_' + form.action
 	const idElement = event.target.id|| event.target.name
@@ -57,4 +75,16 @@ document.querySelectorAll('form input:not([type=submit])', 'form select').forEac
 	else{
 		throw "No id or name on a field"
 	}
+}))
+
+/*
+
+	EXIT PAGE
+
+*/
+
+const pageLoadedTime = getTime()
+document.querySelectorAll('a:not([href^="#"]), input[type="submit"], button[type="submit"]').forEach(e => e.addEventListener('click', (event) => {
+	const executionTime = getTime() - pageLoadedTime
+	console.debug('page_exit', executionTime)
 }))
