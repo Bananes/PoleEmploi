@@ -3,11 +3,11 @@ package com.poleemploi.back.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.assertj.core.util.Arrays;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.poleemploi.back.bean.Alert;
 import com.poleemploi.back.bean.Info;
 import com.poleemploi.back.bean.StatsObject;
 import com.poleemploi.back.bean.StatsPage;
@@ -18,14 +18,14 @@ public class StatsService {
 	private static final String TIME_ELAPSED = "Time-Elapsed";
 	private static final String AMOUNT_CLICK = "Amount-Click";
 	private static final String AMOUNT_ERROR = "Amount-Error";
-	private static final Integer[] maxErrorStep = Arrays.array(2,7,12);
-	private static final Integer[] maxTimeStep = Arrays.array(1000,2000,3000);
-	private static final Integer[] maxClickStep = Arrays.array(10,20,30);
+	private static final Integer[] maxErrorStep = {2,7,12};
+	private static final Integer[] maxTimeStep = {1000,2000,3000};
+	private static final Integer[] maxClickStep = {10,20,30};
 	
 	@Autowired
 	private StatsDAO dao;
 	@Autowired
-	private AlertService alertService;
+	private SocketTransfer socketTranfer;
 	/**
 	 * Launch actions on page stats call
 	 * @param statsPage
@@ -64,8 +64,19 @@ public class StatsService {
 				level = 2;
 			}else{
 				level = 3;
-			}			
-			alertService.sendNotification(new Alert(id,type,level)) ;
+			}	
+			
+			try {
+				JSONObject json = new JSONObject();
+				json.put("id", id);
+				json.put("type",type);
+				json.put("level", level);
+				socketTranfer.sendNotification(json) ;
+				
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			
 		});
 	}
 
