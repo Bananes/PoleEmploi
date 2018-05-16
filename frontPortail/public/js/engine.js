@@ -17,10 +17,10 @@ document.addEventListener('mousemove', (event) => {
 		const avg = Math.round(averageElements.reduce((t,c) => t + c) / averageElements.length)
 		averageElements = []
 		averageList = [...averageList.reverse().filter((v,i) => i < modelAvgList - 1).reverse(), avg]
+		console.debug('speed', averageList)
 	}
 	averageElements = [...averageElements, speed]
 	lastMoveTime = newMoveTime
-	document.getElementById('speed').innerHTML =  Math.round(speed) + "px / " + modelTime + "ms <br/>" + JSON.stringify(averageList)
 })
 
 const modelClickTime = 2 // s
@@ -35,7 +35,7 @@ document.addEventListener('click', (event) => {
 		clickElements = [...clickElements.reverse().filter((v,i) => i < modelClickList - 1).reverse(), 0]
 		lastClickLoopTime = newClickTime
 	}
-	document.getElementById('click').innerHTML = JSON.stringify(clickElements)
+	console.debug('click',  clickElements)
 })
 
 let errorsList = {}
@@ -52,7 +52,7 @@ document.querySelectorAll('form input:not([type=submit])', 'form select').forEac
 		}
 		
 		errorsList[idForm][idElement] = errorsList[idForm][idElement] +1
-		document.getElementById('errors').innerHTML = JSON.stringify(errorsList)
+		console.debug('errors', errorsList)
 	}
 	else{
 		throw "No id or name on a field"
