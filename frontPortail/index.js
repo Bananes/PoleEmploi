@@ -1,8 +1,8 @@
 require('dotenv').config()
 const {BACK_ENDPOINT} = process.env
 
-if(!BACK_ENDPOINT){
-	throw "BACK_ENDPOINT env variable not set"
+if (!BACK_ENDPOINT) {
+  throw 'BACK_ENDPOINT env variable not set'
 }
 
 const express = require('express')
@@ -68,7 +68,7 @@ app.post('/search', (req, res) => {
 })
 
 app.post('/test', (req, res) => {
-	console.log(req.body)
-	res.send(req.body)
+  console.log(req.body)
+  res.send(req.body)
 })
 app.listen(3000)
