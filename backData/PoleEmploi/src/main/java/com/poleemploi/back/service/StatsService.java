@@ -20,10 +20,12 @@ public class StatsService {
 	private static final String AMOUNT_CLICK = "Amount-Click";
 	private static final String AMOUNT_ERROR = "Amount-Error";
 	private static final String MOUSE_SPEED = "Mouse-Speed";
+	private static final String HELP = "Help";
 	private static final Integer[] maxErrorStep = {2,7,12};
 	private static final Integer[] maxTimeStep = {1000,2000,3000};
 	private static final Integer[] maxClickStep = {10,20,30};
 	private static final Integer[] mouseSpeed = {300,500,800};
+	private static final Integer[] helpList = {0,1,2};
 	
 	@Autowired
 	private StatsDAO dao;
@@ -39,6 +41,7 @@ public class StatsService {
 		processClickList(getListInfosFromStats(statsPage, AMOUNT_CLICK),statsPage.getId());
 		processErrorList(getListInfosFromStats(statsPage, AMOUNT_ERROR),statsPage.getId());
 		processMouseSpeedList(getListInfosFromStats(statsPage,MOUSE_SPEED), statsPage.getId());
+		processHelp(getListInfosFromStats(statsPage,HELP),statsPage.getId());
 	}
 	
 	private void persistStats(StatsPage statsPage) {
@@ -47,6 +50,10 @@ public class StatsService {
 
 	private void processErrorList(List<Info> listInfos,String id) {
 		processInfos(listInfos,id,AMOUNT_ERROR,maxErrorStep);		
+	}
+	
+	private void processHelp(List<Info> listInfos,String id) {
+		processInfos(listInfos,id,HELP,helpList);		
 	}
 
 	private void processClickList(List<Info> listInfos,String id) {
