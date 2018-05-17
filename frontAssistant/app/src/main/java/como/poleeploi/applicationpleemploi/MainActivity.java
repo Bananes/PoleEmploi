@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
@@ -38,28 +40,28 @@ public class MainActivity extends AppCompatActivity {
 
     private List<String> lstItems = new LinkedList<String>();
 
-
+private   ArrayAdapter<String> adapter = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
        mTextMessage = (TextView) findViewById(R.id.message);
         // connexion au serveur et recupérer les données
       runThread();
+      // test
         //String data = "{\"level\":2,\"id\":\"123\",\"type\":\"Time\"}\n";
        //dispalyData(data);
     }
 
     private void runThread() {
-      // mTextMessage.setText(" \n Vous n'êtes pas connecté aux serveur   \n");
+      mTextMessage.setText(" \n Vous n'êtes pas connecté   !!!\n");
         new Thread() {
             public void run() {
                 String hostname = "192.168.43.230";
                 int intPort = 8181;
                 Socket socket = null;
                 try {
-                      //  mTextMessage.append("  connection au serveur \n");
+                      //  connexion
                     socket = new Socket(hostname, intPort);
                 } catch (UnknownHostException e1) {
                     e1.printStackTrace();
@@ -70,15 +72,13 @@ public class MainActivity extends AppCompatActivity {
 
                     PrintWriter  out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
                     BufferedReader bf = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                    //mTextMessage.setText("  Vous êtes connecté \n");
+                    mTextMessage.setText("  Vous êtes connecté \n");
                     String data;
-                        while (!bf.ready()  ) {
+                        while (true  ) {
                        //   String dada = "{\"level\":2,\"id\":\"123\",\"type\":\"Time\"}";
-
                             data =  bf.readLine();
-                            // affichege des donnees
+                            // affichage des donnees
                             dispalyData(data);
-                        //mTextMessage.append(data);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -89,13 +89,13 @@ public class MainActivity extends AppCompatActivity {
                     try
                     {
                         socket.close();
+
                     }
                     catch(Exception e)
                     {
                         e.printStackTrace();
                     }
                 }
-
             }
         }.start();
     }
@@ -108,41 +108,41 @@ public class MainActivity extends AppCompatActivity {
             String strId = jsnobject.getString("id");
             String strType = jsnobject.getString("type");
 
-            // Test
-            /*
-            mTextMessage.append("  strLveel   " + strLveel + " \n");
-            mTextMessage.append("  strId   " + strId + " \n");
-            mTextMessage.append("  strType   " + strType + " \n");
-            */
+            String labelType ="";
+
+            switch (strType)
+            {
+                case "Time-Elapsed":
+                    labelType = "L'utilisateur de la poste numéro " + strId + " a mis trop de temps pour remplir le formulaire";
+                    break;
+                case "Amount-Click":
+                    labelType = "L'utilisateur de la poste numéro " + strId + " a un problème avcec les clicks de la souris";
+                    break;
+                case "Amount-Error":
+                    labelType = "L'utilisateur de la poste numéro " + strId + " a fait beaucoup d'erreur";
+                    break;
+                case "Mouse-Speed":
+                    labelType = "L'utilisateur de la poste numéro " + strId + " fait des mouvements trop rapide";
+                    break;
+                    default:
+                        labelType = "L'utilisateur de la poste numéro " + strId + " à besoin d'aide";
+                        break;
+            }
 
             ConstraintLayout layout = (ConstraintLayout) findViewById(R.id.container);
             ConstraintSet set = new ConstraintSet();
             set.clone(layout);
-
-            //ListView lv = (ListView) findViewById(R.id.list);
-            //lstItems.add("La poste numéro " + strId + " à besoin d'aide ");
-            //final ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this,
-            //        android.R.layout.simple_list_item_1, lstItems);
-
-
-            final String text = "La poste numéro " + strId + " à besoin d'aide ";
-
+            final String text = labelType;
             layout.post(new Runnable() {
+
                 @Override
                 public void run() {
-                    ListView DynamicListView = new ListView(getApplicationContext());
-                    lstItems.add(text);
-                    LinearLayout linearLayout = (LinearLayout) findViewById(R.id.listTemp);
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                            (MainActivity.this, android.R.layout.simple_list_item_1, lstItems);
-
-                    DynamicListView.setAdapter(adapter);
-                    linearLayout.addView(DynamicListView);
+                    mTextMessage.append(text +" \n " + " \n");
                 }
+
             });
 
         } catch (JSONException jex) {
-            jex.printStackTrace();
-        }
+            jex.printStackTrace();}
     }
 }
