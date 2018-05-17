@@ -66,8 +66,10 @@
   document.addEventListener('mousemove', (event) => {
     const {movementX, movementY} = event
     const newMoveTime = actualTime()
-    const speed = Math.sqrt(movementX ** 2 + movementY ** 2) * modelTime / (newMoveTime - lastMoveTime)
-    if (newMoveTime - lastAverageTime > modelAvgTime && averageElements.length !== 0) {
+    
+	const speed = Math.sqrt(movementX ** 2 + movementY ** 2) * modelTime / (newMoveTime - lastMoveTime)
+
+	if (newMoveTime - lastAverageTime > modelAvgTime && averageElements.length !== 0) {
       lastAverageTime = newMoveTime
       const avg = Math.round(avgNumberList(averageElements))
       averageElements = []
@@ -128,10 +130,7 @@
 */
 
   const pageLoadedTime = getTime()
-  document.querySelectorAll('a:not([href^="#"]), input[type="submit"], button[type="submit"]').forEach(e => e.addEventListener('click', (event) => {
-    const executionTime = getTime() - pageLoadedTime
-    console.debug('page_exit', executionTime)
-  }))
+  document.querySelectorAll('a:not([href^="#"]), input[type="submit"], button[type="submit"]').forEach(e => e.addEventListener('click', (event) => sendData()))
 
   /*
 ===================
@@ -139,7 +138,45 @@
 ===================
 */
 
-  const sendData = (infos) => {
+  const checkingInterval = 10 // s
+
+  const modelAvgResetTime = 10 // s
+  const modelClickResetTime = 10 // s
+
+  const modelMouseSend = 400 // px
+  const modelClickSend = 10 // clics
+
+	const sendData = (isExiting) => {
+	const mouseMovementAverage = avgNumberList(averageList)
+    const clickAverage = avgNumberList(clickElements)
+	const executionTime = getTime() - pageLoadedTime
+
+    console.debug('================================')
+    console.debug(mouseMovementAverage + 'px / ' + modelTime + 'ms')
+    console.debug(clickAverage + ' click(s) / ' + modelClickTime + 's')
+    console.debug(((getTime() - pageLoadedTime) / 1000) + 's')
+    console.debug('================================')
+
+    let infos = []
+    if (mouseMovementAverage > modelMouseSend) {
+      infos = [...infos, {
+        name: 'Mouse-Speed',
+        value: mouseMovementAverage
+      }]
+    }
+    if (clickAverage > modelClickSend) {
+      infos = [...infos, {
+        name: 'Amount-Click',
+        value: clickAverage
+      }]
+    }
+	if(isExiting){
+		infos = [...infos, {
+			name: 'Time-Elapsed',
+			value: executionTime
+		}]
+	}
+	
     if (infos && infos.length !== 0) {
       const idUser = posteId
       const page = window.location.href
@@ -151,17 +188,9 @@
       }
 
       console.debug('sended', data.infos)
-      axios.post(BACK_ENDPOINT, data).catch((ex) => console.error(ex))
+      axios.post(BACK_ENDPOINT, data).catch((ex) => console.debug(ex))
     }
   }
-
-  const checkingInterval = 10 // s
-
-  const modelAvgResetTime = 10 // s
-  const modelClickResetTime = 10 // s
-
-  const modelMouseSend = 500 // px
-  const modelClickSend = 10 // clics
 
   setInterval(() => {
     const actualTime = getTime()
@@ -172,30 +201,9 @@
     if (actualTime - lastClickLoopTime > modelClickResetTime * 1000) {
       clickElements = []
     }
+	
+	sendData()
 
-    mouseMovementAverage = avgNumberList(averageList)
-    clickAverage = avgNumberList(clickElements)
-
-    console.debug('================================')
-    console.debug(mouseMovementAverage + 'px / ' + modelTime + 'ms')
-    console.debug(clickAverage + ' click(s) / ' + modelClickTime + 's')
-    console.debug(((getTime() - pageLoadedTime) / 1000) + 's')
-    console.debug('================================')
-
-    let infos = []
-    if (mouseMovementAverage > modelMouseSend) {
-      infos = [...infos, {
-        id: 'MOUSE_AVG',
-        value: mouseMovementAverage
-      }]
-    }
-    if (clickAverage > modelClickSend) {
-      infos = [...infos, {
-        id: 'CLICK_AVG',
-        value: clickAverage
-      }]
-    }
-    sendData(infos)
   }, checkingInterval * 1000)
 
   console.log('engine loaded')
