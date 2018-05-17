@@ -37,7 +37,50 @@
 
   <main>
     <div class="row">
+ 
       <div class="col s6">
+        <div style="padding: 35px;" align="center" class="card">
+          <div class="row">
+            <div class="left card-title">
+              <b>Nombre d'erreur par page</b>
+            </div>
+          </div>
+          <div class="row">
+          	<canvas id="userByPila"></canvas>
+          	<script>
+	          	new Chart(document.getElementById("userByPila"),
+	          	{"type":"bar",
+		         "data":{"labels":["Portail", "Recherche", "A propos", "Formulaire"],
+		         "datasets": [{"label":"errors per page",
+			         		   "data":[10000,16000,8500,24000,18000,32000,20000],
+			         		   "fill":false,
+			         		   "backgroundColor":["rgba(255, 99, 132, 0.2)",
+			         		   					  "rgba(255, 159, 64, 0.2)",
+			         		   					  "rgba(255, 205, 86, 0.2)",
+			         		   					  "rgba(75, 192, 192, 0.2)",
+			         		   					  "rgba(54, 162, 235, 0.2)",
+			         		   					  "rgba(153, 102, 255, 0.2)",
+			         		   					  "rgba(201, 203, 207, 0.2)"],
+			         		   "borderColor":["rgb(255, 99, 132)",
+			         		   				  "rgb(255, 159, 64)",
+			         		   				  "rgb(255, 205, 86)",
+			         		   				  "rgb(75, 192, 192)",
+			         		   				  "rgb(54, 162, 235)",
+			         		   				  "rgb(153, 102, 255)",
+			         		   				  "rgb(201, 203, 207)"],
+			         		   "borderWidth":1}]},
+			      "options":{"scales":
+				      		{"yAxes":[{"ticks":{"beginAtZero":true}
+				      					}]
+				      				}
+				      			}
+				      		});
+				</script>
+          </div>
+        </div>
+      </div>
+
+     <div class="col s6">
         <div style="padding: 35px;" align="center" class="card">
           <div class="row">
             <div class="left card-title">
@@ -72,50 +115,38 @@
         </div>
       </div>
 
+	  </div>
+
+    <div class="row">
+
       <div class="col s6">
         <div style="padding: 35px;" align="center" class="card">
           <div class="row">
             <div class="left card-title">
-              <b>Utilisateur par borne</b>
+              <b>Types d'erreurs par quantitée</b>
             </div>
           </div>
           <div class="row">
-          	<canvas id="userByPila"></canvas>
+	        <canvas id="chartjs" height="200" style="display: block; height: 277px; width: 555px;"></canvas>
           	<script>
-	          	new Chart(document.getElementById("userByPila"),
-	          	{"type":"bar",
-		         "data":{"labels":["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet"],
-		         "datasets": [{"label":"My First Dataset",
-			         		   "data":[10000,16000,8500,24000,18000,32000,20000],
-			         		   "fill":false,
-			         		   "backgroundColor":["rgba(255, 99, 132, 0.2)",
-			         		   					  "rgba(255, 159, 64, 0.2)",
-			         		   					  "rgba(255, 205, 86, 0.2)",
-			         		   					  "rgba(75, 192, 192, 0.2)",
-			         		   					  "rgba(54, 162, 235, 0.2)",
-			         		   					  "rgba(153, 102, 255, 0.2)",
-			         		   					  "rgba(201, 203, 207, 0.2)"],
-			         		   "borderColor":["rgb(255, 99, 132)",
-			         		   				  "rgb(255, 159, 64)",
-			         		   				  "rgb(255, 205, 86)",
-			         		   				  "rgb(75, 192, 192)",
-			         		   				  "rgb(54, 162, 235)",
-			         		   				  "rgb(153, 102, 255)",
-			         		   				  "rgb(201, 203, 207)"],
-			         		   "borderWidth":1}]},
-			      "options":{"scales":
-				      		{"yAxes":[{"ticks":{"beginAtZero":true}
-				      					}]
-				      				}
-				      			}
-				      		});
-				</script>
+	          	new Chart(document.getElementById("chartjs"),
+	          	{"type":"polarArea",
+		         "data":{
+			         "labels":["Vitesse souris","Nombre clicks","Formulaire eronné","Temps exécution de page"],
+			         "datasets":[{"label":"My First Dataset",
+				         "data":[11,16,7,3,14],
+				         "backgroundColor":["rgb(255, 99, 132)",
+				         					"rgb(75, 192, 192)",
+				         					"rgb(255, 205, 86)",
+				         					"rgb(201, 203, 207)",
+				         					"rgb(54, 162, 235)"]
+				         		}
+				        ]}
+				});
+          	</script>
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="row">
       <div class="col s6">
         <div style="padding: 35px;" align="center" class="card">
           <div class="row">
@@ -139,35 +170,6 @@
 				 ]}
 				 });
 	        </script>
-          </div>
-        </div>
-      </div>
-
-      <div class="col s6">
-        <div style="padding: 35px;" align="center" class="card">
-          <div class="row">
-            <div class="left card-title">
-              <b>Category Management</b>
-            </div>
-          </div>
-          <div class="row">
-	        <canvas id="chartjs" height="200" style="display: block; height: 277px; width: 555px;"></canvas>
-          	<script>
-	          	new Chart(document.getElementById("chartjs"),
-	          	{"type":"polarArea",
-		         "data":{
-			         "labels":["Red","Green","Yellow","Grey","Blue"],
-			         "datasets":[{"label":"My First Dataset",
-				         "data":[11,16,7,3,14],
-				         "backgroundColor":["rgb(255, 99, 132)",
-				         					"rgb(75, 192, 192)",
-				         					"rgb(255, 205, 86)",
-				         					"rgb(201, 203, 207)",
-				         					"rgb(54, 162, 235)"]
-				         		}
-				        ]}
-				});
-          	</script>
           </div>
         </div>
       </div>
