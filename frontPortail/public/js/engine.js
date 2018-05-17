@@ -1,3 +1,49 @@
+(() => {
+
+/*
+===================
+	CONFIG
+===================
+*/
+
+const posteId = Cookies.get('poste')
+if(!posteId){
+	throw "No poste configuration saved"
+}
+
+/*
+===================
+	ADD DOM ELEMENTS
+===================
+*/
+	
+const html = `
+<div id="helper" class="small">
+	<div class="close">
+		<button onclick="toogleHelper(this)">X</button>
+	</div>
+	<div class="small flex-center">
+		<button onclick="toogleHelper(this)">?</button>
+	</div>
+	<div class="large flex-column">
+		<div><h2>Besoin d'aide ?</h2></div>
+		<div><h4><a href="#" onclick="showHelp()">Cliquez ici</a></h4></div>
+	</div>
+</div>
+
+<div id="helper-container">
+	<div id="helper-bg"></div>
+	<div id="helper-content">
+		HELP
+	</div>
+</div>
+`
+const div = document.createElement('div')
+div.innerHTML = html
+while(div.firstChild) {
+	document.getElementById('main').appendChild(div.firstChild)
+}
+
 /*
 ===================
 	STATISTICS
@@ -95,18 +141,20 @@ document.querySelectorAll('a:not([href^="#"]), input[type="submit"], button[type
 ===================
 */
 
-const sendData = () => {
-	const idUser = "ID"
-	const page = window.location.href
-	const infos = []
-	
-	const data = {
-		id: idUser,
-		page: page,
-		infos: infos
+const sendData = (infos) => {
+	if(infos && infos.length !== 0){
+		const idUser = posteId
+		const page = window.location.href
+		
+		const data = {
+			id: idUser,
+			page: page,
+			infos: infos
+		}
+		
+		console.debug('sended', data.infos)
+		axios.post(BACK_ENDPOINT, data).catch((ex) => console.error(ex))
 	}
-	
-	axios.post(BACK_ENDPOINT, data).catch((ex) => console.error(ex))
 }
 
 const checkingInterval = 10 // s
@@ -114,9 +162,12 @@ const checkingInterval = 10 // s
 const modelAvgResetTime = 10 // s
 const modelClickResetTime = 10 //s
 
+const modelMouseSend = 500 //px
+const modelClickSend = 10 // clics
+
 setInterval(() => {
 	const actualTime = getTime()
-	if(actualTime - lastAverageTime > modelAvgResetTime*1000){
+	if(actualTime - lastAverageTime > modelAvgResetTime * 1000){
 		averageElements = []
 		averageList = []
 	}
@@ -128,14 +179,27 @@ setInterval(() => {
 	mouseMovementAverage = avgNumberList(averageList)
 	clickAverage = avgNumberList(clickElements)
 	
-	console.log(mouseMovementAverage+"px / "+modelTime+"ms")
-	console.log(clickAverage+" click(s) / "+modelClickTime+"s")
-	console.log(((getTime() - pageLoadedTime)/1000)+"s")
+	console.debug("================================")
+	console.debug(mouseMovementAverage+"px / "+modelTime+"ms")
+	console.debug(clickAverage+" click(s) / "+modelClickTime+"s")
+	console.debug(((getTime() - pageLoadedTime)/1000)+"s")
+	console.debug("================================")
 	
-	
+	let infos = []
+	if(mouseMovementAverage > modelMouseSend){
+		infos = [...infos, {
+			id: "MOUSE_AVG",
+			value: mouseMovementAverage
+		}]
+	}
+	if(clickAverage > modelClickSend){
+		infos = [...infos, {
+			id: "CLICK_AVG",
+			value: clickAverage
+		}]
+	}
+	sendData(infos)
 }, checkingInterval * 1000)
 
-
-
-
-
+console.log("engine loaded")
+})()
