@@ -7,7 +7,7 @@ liste des modules
 - Une application de monitoring permettant d'afficher des graphiques de synthèses concernant les informations envoyées par le back.
 
 voici le schéma correcpondant a ce projet ( ce qui sert de poc ).
-![alt text](https://github.com/Bananes/PoleEmploi/tree/master/images/poc.png)
+![Image for poc](https://github.com/Bananes/PoleEmploi/tree/master/images/poc.png)
 
 Et voici le schéma correcpondant a une possible mise en production de ce projet.
-![alt text](https://github.com/Bananes/PoleEmploi/tree/master/images/prod.png)
+![Image for prod](https://github.com/Bananes/PoleEmploi/tree/master/images/prod.png)
