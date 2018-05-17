@@ -1,0 +1,221 @@
+<head>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+</head>
+
+<body>
+  <header>
+    <nav class="indigo" role="navigation">
+      <div class="nav-wrapper">
+        <a data-activates="slide-out" class="button-collapse show-on-" href="#!"><img style="margin-top: 17px; margin-left: 15px;" src="https://upload.wikimedia.org/wikipedia/fr/c/cd/Logo_P%C3%B4le_Emploi.png" height="42" width="52"/></a>
+
+        <ul class="right hide-on-med-and-down">
+          <li>
+            <a class='right dropdown-button' href='' data-activates='user_dropdown'><i class=' material-icons'>account_circle</i></a>
+          </li>
+        </ul>
+
+        <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+      </div>
+    </nav>
+
+    <nav>
+      <div class="nav-wrapper indigo darken-2">
+        <a style="margin-left: 20px;" class="breadcrumb" href="#!">Admin</a>
+        <a class="breadcrumb" href="#!">Index</a>
+
+        <div style="margin-right: 20px;" id="timestamp" class="right"></div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="row">
+      <div class="col s6">
+        <div style="padding: 35px;" align="center" class="card">
+          <div class="row">
+            <div class="left card-title">
+              <b>Courbe du nombre d'utilisateur</b>
+            </div>
+          </div>
+
+          <div class="row">
+	          <canvas id="myChart"></canvas>
+	          <script>
+					var ctx = document.getElementById('myChart').getContext('2d');
+					var chart = new Chart(ctx, {
+					    // The type of chart we want to create
+					    type: 'line',
+					
+					    // The data for our dataset
+					    data: { 
+					        labels: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet"],
+					        datasets: [{
+					            label: "My First dataset",
+					            backgroundColor: 'rgb(255, 99, 132)',
+					            borderColor: 'rgb(255, 99, 132)',
+					            data: [10000,16000,8500,24000,18000,32000,20000],
+					        }]
+					    },
+					
+					    // Configuration options go here
+					    options: {}
+					});
+				</script>
+          </div>
+        </div>
+      </div>
+
+      <div class="col s6">
+        <div style="padding: 35px;" align="center" class="card">
+          <div class="row">
+            <div class="left card-title">
+              <b>Utilisateur par borne</b>
+            </div>
+          </div>
+          <div class="row">
+          	<canvas id="userByPila"></canvas>
+          	<script>
+	          	new Chart(document.getElementById("userByPila"),
+	          	{"type":"bar",
+		         "data":{"labels":["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet"],
+		         "datasets": [{"label":"My First Dataset",
+			         		   "data":[10000,16000,8500,24000,18000,32000,20000],
+			         		   "fill":false,
+			         		   "backgroundColor":["rgba(255, 99, 132, 0.2)",
+			         		   					  "rgba(255, 159, 64, 0.2)",
+			         		   					  "rgba(255, 205, 86, 0.2)",
+			         		   					  "rgba(75, 192, 192, 0.2)",
+			         		   					  "rgba(54, 162, 235, 0.2)",
+			         		   					  "rgba(153, 102, 255, 0.2)",
+			         		   					  "rgba(201, 203, 207, 0.2)"],
+			         		   "borderColor":["rgb(255, 99, 132)",
+			         		   				  "rgb(255, 159, 64)",
+			         		   				  "rgb(255, 205, 86)",
+			         		   				  "rgb(75, 192, 192)",
+			         		   				  "rgb(54, 162, 235)",
+			         		   				  "rgb(153, 102, 255)",
+			         		   				  "rgb(201, 203, 207)"],
+			         		   "borderWidth":1}]},
+			      "options":{"scales":
+				      		{"yAxes":[{"ticks":{"beginAtZero":true}
+				      					}]
+				      				}
+				      			}
+				      		});
+				</script>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col s6">
+        <div style="padding: 35px;" align="center" class="card">
+          <div class="row">
+            <div class="left card-title">
+              <b>Brand Management</b>
+            </div>
+          </div>
+
+          <div class="row">
+          	<canvas id="thatChart" height="200" style="display: block; height: 277px; width: 555px;"></canvas>
+          	<script>
+	          	new Chart(document.getElementById("thatChart"),
+	          	{"type":"pie",
+		         "data":{"labels":["Red","Blue","Yellow"],
+			     "datasets":[{
+				     "label":"My First Dataset",
+				     "data":[10,10,10],
+				 "backgroundColor":["rgb(255, 99, 132)",
+				 "rgb(54, 162, 235)",
+				 "rgb(255, 205, 86)"]}
+				 ]}
+				 });
+	        </script>
+          </div>
+        </div>
+      </div>
+
+      <div class="col s6">
+        <div style="padding: 35px;" align="center" class="card">
+          <div class="row">
+            <div class="left card-title">
+              <b>Category Management</b>
+            </div>
+          </div>
+          <div class="row">
+	        <canvas id="chartjs" height="200" style="display: block; height: 277px; width: 555px;"></canvas>
+          	<script>
+	          	new Chart(document.getElementById("chartjs"),
+	          	{"type":"polarArea",
+		         "data":{
+			         "labels":["Red","Green","Yellow","Grey","Blue"],
+			         "datasets":[{"label":"My First Dataset",
+				         "data":[11,16,7,3,14],
+				         "backgroundColor":["rgb(255, 99, 132)",
+				         					"rgb(75, 192, 192)",
+				         					"rgb(255, 205, 86)",
+				         					"rgb(201, 203, 207)",
+				         					"rgb(54, 162, 235)"]
+				         		}
+				        ]}
+				});
+          	</script>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fixed-action-btn click-to-toggle" style="bottom: 45px; right: 24px;">
+      <a class="btn-floating btn-large pink waves-effect waves-light">
+        <i class="large material-icons">add</i>
+      </a>
+
+      <ul>
+        <li>
+          <a class="btn-floating red"><i class="material-icons">note_add</i></a>
+          <a href="" class="btn-floating fab-tip">Add a note</a>
+        </li>
+
+        <li>
+          <a class="btn-floating yellow darken-1"><i class="material-icons">add_a_photo</i></a>
+          <a href="" class="btn-floating fab-tip">Add a photo</a>
+        </li>
+
+        <li>
+          <a class="btn-floating green"><i class="material-icons">alarm_add</i></a>
+          <a href="" class="btn-floating fab-tip">Add an alarm</a>
+        </li>
+
+        <li>
+          <a class="btn-floating blue"><i class="material-icons">vpn_key</i></a>
+          <a href="" class="btn-floating fab-tip">Add a master password</a>
+        </li>
+      </ul>
+    </div>
+  </main>
+
+  <footer class="indigo page-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col s12">
+          <h5 class="white-text">Credits</h5>
+          </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+         <span>Pôle Emploi</span>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>
