@@ -200,7 +200,10 @@ document.getElementById('needAssistance').addEventListener('click', (event) => {
 	sendData('ASSISTANCE')
 	toogleHelp()
 	toogleHelper()
-	alert("Assistance required")
+	setTimeout(() => {
+		M.toast({html: "Une assistance a été demandée"})
+		setTimeout(() => 	M.toast({html: "Veillez patientez."}), 750)
+	}, 1000)
 })
 
 /*

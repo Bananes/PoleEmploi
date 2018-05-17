@@ -26,11 +26,10 @@ html, body, #main{
 	font-size: 35px;
 }
 
-/*
-input, select{
-	border-radius: 7px;
-	padding: 5px 20px;
-}*/
+.input-field>label{
+	font-size: 1.7rem;
+	color: rgb(29, 138, 138);
+}
 
 [class*=flex]{
 	display: flex;

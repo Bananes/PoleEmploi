@@ -10,6 +10,8 @@ ENGINE
 	border: solid black 1px;
 	border-radius: 10px;
 	left: 0;
+	margin-left: 10px;
+	margin-bottom: 10px;
 	transition: .4s;
 }
 
