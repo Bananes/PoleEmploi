@@ -55,6 +55,10 @@ p{
 	text-align: left;
 }
 
+.collection .collection-item{
+	line-height: 3.3rem;
+}
+
 /*
 
 HOME

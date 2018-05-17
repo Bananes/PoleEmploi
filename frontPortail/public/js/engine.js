@@ -14,14 +14,13 @@ const toogleHelper = () => {
 const toogleHelp = () => {
   const div = document.getElementById('helper-container')
   const container = document.body
-  if(div.className.indexOf('open') !== -1){
+  if (div.className.indexOf('open') !== -1) {
 	  div.classList.remove('open')
-	  container.style = "overflow: auto;"
+	  container.style = 'overflow: auto;'
+  } else {
+	  container.style = 'overflow: hidden;'
+    div.classList.add('open')
   }
-  else{
-	  container.style = "overflow: hidden;"
-	div.classList.add('open')
-	}
 }
 
 const avgNumberList = (list) => list && list.length ? list.reduce((t, v) => t + v, 0) / list.length : 0
@@ -37,9 +36,9 @@ const engine = () => {
     throw 'No poste configuration saved'
   }
 
-	document.querySelectorAll('input:not([name])', 'select:not([name])').forEach(input => {
+  document.querySelectorAll('input:not([name])', 'select:not([name])').forEach(input => {
 	  input.name = input.id
-	})
+  })
 
   /*
 ===================
@@ -49,7 +48,7 @@ const engine = () => {
 
   const html = `
 <div id="helper" class="small">
-	<div class="close">
+	<div id="helper-close" class="close">
 		<button class="btn" onclick="toogleHelper(this)">X</button>
 	</div>
 	<div class="small flex-center">
@@ -57,7 +56,7 @@ const engine = () => {
 	</div>
 	<div class="large flex-column">
 		<div><h2>Besoin d'aide ?</h2></div>
-		<div><h4><a href="#" onclick="toogleHelp()">Cliquez ici</a></h4></div>
+		<div><button class="btn btn-large" onclick="toogleHelp()">Cliquez ici</button></div>
 	</div>
 </div>
 
@@ -129,10 +128,10 @@ const engine = () => {
   document.addEventListener('mousemove', (event) => {
     const {movementX, movementY} = event
     const newMoveTime = actualTime()
-    
-	const speed = Math.sqrt(movementX ** 2 + movementY ** 2) * modelTime / (newMoveTime - lastMoveTime)
 
-	if (newMoveTime - lastAverageTime > modelAvgTime && averageElements.length !== 0) {
+    const speed = Math.sqrt(movementX ** 2 + movementY ** 2) * modelTime / (newMoveTime - lastMoveTime)
+
+    if (newMoveTime - lastAverageTime > modelAvgTime && averageElements.length !== 0) {
       lastAverageTime = newMoveTime
       const avg = Math.round(avgNumberList(averageElements))
       averageElements = []
@@ -186,7 +185,7 @@ const engine = () => {
     }
   }))
 
-/*
+  /*
 	EXIT PAGE
 */
 
@@ -196,17 +195,17 @@ const engine = () => {
   /*
 	ASSISTANCE REQUIRED
 */
-document.getElementById('needAssistance').addEventListener('click', (event) => {
-	sendData('ASSISTANCE')
-	toogleHelp()
-	toogleHelper()
-	setTimeout(() => {
-		M.toast({html: "Une assistance a été demandée"})
-		setTimeout(() => 	M.toast({html: "Veillez patientez."}), 750)
-	}, 1000)
-})
+  document.getElementById('needAssistance').addEventListener('click', (event) => {
+    sendData('ASSISTANCE')
+    toogleHelp()
+    toogleHelper()
+    setTimeout(() => {
+      M.toast({html: 'Une assistance a été demandée'})
+      setTimeout(() => 	M.toast({html: 'Veillez patientez.'}), 750)
+    }, 1000)
+  })
 
-/*
+  /*
 ===================
 	LOGC & SENDING DATA
 ===================
@@ -220,10 +219,10 @@ document.getElementById('needAssistance').addEventListener('click', (event) => {
   const modelMouseSend = 400 // px
   const modelClickSend = 7 // clics
 
-	const sendData = (reason) => {
-	const mouseMovementAverage = avgNumberList(averageList)
+  const sendData = (reason) => {
+    const mouseMovementAverage = avgNumberList(averageList)
     const clickAverage = avgNumberList(clickElements)
-	const executionTime = getTime() - pageLoadedTime
+    const executionTime = getTime() - pageLoadedTime
 
     console.debug('================================')
     console.debug(mouseMovementAverage + 'px / ' + modelTime + 'ms')
@@ -232,33 +231,31 @@ document.getElementById('needAssistance').addEventListener('click', (event) => {
     console.debug('================================')
 
     let infos = []
-	if(reason === 'EXITING'){
-		infos = [...infos, {
-			name: 'Time-Elapsed',
-			value: executionTime
-		}]
-	}
-	else if(reason === 'ASSISTANCE'){
-		infos = [...infos, {
-			name: 'Help',
-			value: 666
-		}]
-	}
-	else{
-		if (mouseMovementAverage > modelMouseSend) {
+    if (reason === 'EXITING') {
+      infos = [...infos, {
+        name: 'Time-Elapsed',
+        value: executionTime
+      }]
+    } else if (reason === 'ASSISTANCE') {
+      infos = [...infos, {
+        name: 'Help',
+        value: 666
+      }]
+    } else {
+      if (mouseMovementAverage > modelMouseSend) {
 		  infos = [...infos, {
-			name: 'Mouse-Speed',
-			value: mouseMovementAverage
+          name: 'Mouse-Speed',
+          value: mouseMovementAverage
 		  }]
-		}
-		if (clickAverage > modelClickSend) {
+      }
+      if (clickAverage > modelClickSend) {
 		  infos = [...infos, {
-			name: 'Amount-Click',
-			value: clickAverage
+          name: 'Amount-Click',
+          value: clickAverage
 		  }]
-		}
-	}
-	
+      }
+    }
+
     if (infos && infos.length !== 0) {
       const idUser = posteId
       const page = window.location.pathname
@@ -283,9 +280,8 @@ document.getElementById('needAssistance').addEventListener('click', (event) => {
     if (actualTime - lastClickLoopTime > modelClickResetTime * 1000) {
       clickElements = []
     }
-	
-	sendData()
 
+    sendData()
   }, checkingInterval * 1000)
 
   console.log('engine loaded')

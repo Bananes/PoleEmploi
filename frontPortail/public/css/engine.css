@@ -15,6 +15,12 @@ ENGINE
 	transition: .4s;
 }
 
+#helper #helper-close{
+	position: absolute;
+	right: 9px;
+	top: 7px;
+}
+
 #helper > * {
 	height: 100%;
 }
