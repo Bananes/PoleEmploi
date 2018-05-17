@@ -1,14 +1,44 @@
-(() => {
+const toogleHelper = () => {
+  const div = document.getElementById('helper')
+  const classes = {
+    'large': 'small',
+    'small': 'large'
+  }
+  div.classList.forEach(c => {
+    if (Object.keys(classes).includes(c)) {
+      div.classList.replace(c, classes[c])
+    }
+  })
+}
+
+const toogleHelp = () => {
+  const div = document.getElementById('helper-container')
+  if(div.className.indexOf('open') !== -1){
+	  div.classList.remove('open')
+  }
+  else{
+	div.classList.add('open')
+	}
+}
+
+const avgNumberList = (list) => list && list.length ? list.reduce((t, v) => t + v, 0) / list.length : 0
+
+
+const engine = () => {
 /*
 ===================
 	CONFIG
 ===================
 */
-
+console.log("test")
   const posteId = Cookies.get('poste')
   if (!posteId) {
     throw 'No poste configuration saved'
   }
+
+	document.querySelectorAll('input:not([name])', 'select:not([name])').forEach(input => {
+	  input.name = input.id
+	})
 
   /*
 ===================
@@ -19,21 +49,49 @@
   const html = `
 <div id="helper" class="small">
 	<div class="close">
-		<button onclick="toogleHelper(this)">X</button>
+		<button class="btn" onclick="toogleHelper(this)">X</button>
 	</div>
 	<div class="small flex-center">
-		<button onclick="toogleHelper(this)">?</button>
+		<button class="btn" onclick="toogleHelper(this)">?</button>
 	</div>
 	<div class="large flex-column">
 		<div><h2>Besoin d'aide ?</h2></div>
-		<div><h4><a href="#" onclick="showHelp()">Cliquez ici</a></h4></div>
+		<div><h4><a href="#" onclick="toogleHelp()">Cliquez ici</a></h4></div>
 	</div>
 </div>
 
 <div id="helper-container">
 	<div id="helper-bg"></div>
-	<div id="helper-content">
-		HELP
+	<div id="helper-content" class="container">
+		<div class="flex-column container">
+			<div>
+				<h3>Aide</h3>
+			</div>
+			<div>
+				<p>
+					La page sur laquelle vous vous sitiez est un formulaire où vous pouvez remplir les champs avec les informations qui sont nécessaires.
+				</p>
+				<p>
+					Par exemple, un champ avec "Prénom", vous demandera de remplir le champ avec votre prénom.<br/>
+					Un champ avec une date de naissance vous demandera de sélectionner votre date de naissance, etc.
+				</p>
+				<p>
+					Une étoile "*" indique qu'un champ est obligatoire, vous serez donc obligé de remplir ce champ pour valider  le formulaire.
+				</p>
+				<p>
+					Si certaines informations viennent à vous manquer, n'hésitez pas à aller chercher cette information et à revenir remplir le formulaire ultérieurement.
+				</p>
+				<p>
+					Les boutons ci-dessous indiquent que vous avez compris et/ou que vous souhaitez obtenir une assistance plus approfondie concernant l'utilisation de cette page.
+				</p>
+			</div>
+			<div>
+				<button class="btn" onclick="toogleHelp(); toogleHelper()">J'ai compris</button>
+			</div>
+			<div>
+				<button class="btn">J'ai besoin d'une assistance supplémentaire</button>
+			</div>
+		</div>
 	</div>
 </div>
 `
@@ -207,4 +265,4 @@
   }, checkingInterval * 1000)
 
   console.log('engine loaded')
-})()
+}
