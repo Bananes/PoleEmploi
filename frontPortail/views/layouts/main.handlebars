@@ -12,6 +12,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
  
 	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
 </head>
 <body>
 	<div id="main-container" class="container">
@@ -23,9 +24,26 @@
 	<script type="text/javascript" src="js/materialize.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
 	
 	<script>
 		const BACK_ENDPOINT = "{{settings.BACK_ENDPOINT}}"
+		window.addEventListener("load", function(){
+		window.cookieconsent.initialise({
+		  "palette": {
+			"popup": {
+			  "background": "#1d8a8a"
+			},
+			"button": {
+			  "background": "#62ffaa"
+			}
+		  },
+		  "content": {
+			"message": "Ce site web utilise des cookies afin de gérer au mieux votre expérience.",
+			"dismiss": "J'ai compris",
+			"link": "En savoir plus"
+		  }
+		})})
 	</script>
 	<script src="js/main.js"></script>
 	<script src="js/engine.js"></script>
