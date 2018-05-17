@@ -23,14 +23,12 @@ const toogleHelp = () => {
 
 const avgNumberList = (list) => list && list.length ? list.reduce((t, v) => t + v, 0) / list.length : 0
 
-
 const engine = () => {
 /*
 ===================
 	CONFIG
 ===================
 */
-console.log("test")
   const posteId = Cookies.get('poste')
   if (!posteId) {
     throw 'No poste configuration saved'
@@ -63,33 +61,37 @@ console.log("test")
 <div id="helper-container">
 	<div id="helper-bg"></div>
 	<div id="helper-content" class="container">
-		<div class="flex-column container">
-			<div>
-				<h3>Aide</h3>
-			</div>
-			<div>
-				<p>
-					La page sur laquelle vous vous sitiez est un formulaire où vous pouvez remplir les champs avec les informations qui sont nécessaires.
-				</p>
-				<p>
-					Par exemple, un champ avec "Prénom", vous demandera de remplir le champ avec votre prénom.<br/>
-					Un champ avec une date de naissance vous demandera de sélectionner votre date de naissance, etc.
-				</p>
-				<p>
-					Une étoile "*" indique qu'un champ est obligatoire, vous serez donc obligé de remplir ce champ pour valider  le formulaire.
-				</p>
-				<p>
-					Si certaines informations viennent à vous manquer, n'hésitez pas à aller chercher cette information et à revenir remplir le formulaire ultérieurement.
-				</p>
-				<p>
-					Les boutons ci-dessous indiquent que vous avez compris et/ou que vous souhaitez obtenir une assistance plus approfondie concernant l'utilisation de cette page.
-				</p>
-			</div>
-			<div>
-				<button class="btn" onclick="toogleHelp(); toogleHelper()">J'ai compris</button>
-			</div>
-			<div>
-				<button class="btn">J'ai besoin d'une assistance supplémentaire</button>
+		<div class="container">
+			<div class="row">
+				<div class="col s12 flex-column">
+					<div>
+						<h3>Aide</h3>
+					</div>
+					<div>
+						<p>
+							La page sur laquelle vous vous sitiez est un formulaire où vous pouvez remplir les champs avec les informations qui sont nécessaires.
+						</p>
+						<p>
+							Par exemple, un champ avec "Prénom", vous demandera de remplir le champ avec votre prénom.<br/>
+							Un champ avec une date de naissance vous demandera de sélectionner votre date de naissance, etc.
+						</p>
+						<p>
+							Une étoile "*" indique qu'un champ est obligatoire, vous serez donc obligé de remplir ce champ pour valider  le formulaire.
+						</p>
+						<p>
+							Si certaines informations viennent à vous manquer, n'hésitez pas à aller chercher cette information et à revenir remplir le formulaire ultérieurement.
+						</p>
+						<p>
+							Les boutons ci-dessous indiquent que vous avez compris et/ou que vous souhaitez obtenir une assistance plus approfondie concernant l'utilisation de cette page.
+						</p>
+					</div>
+					<div>
+						<button class="btn" onclick="toogleHelp(); toogleHelper()">J'ai compris</button>
+					</div>
+					<div>
+						<button class="btn" id="needAssistance">J'ai besoin d'une assistance supplémentaire</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -181,16 +183,24 @@ console.log("test")
     }
   }))
 
-  /*
-
+/*
 	EXIT PAGE
-
 */
 
   const pageLoadedTime = getTime()
-  document.querySelectorAll('a:not([href^="#"]), input[type="submit"], button[type="submit"]').forEach(e => e.addEventListener('click', (event) => sendData()))
+  document.querySelectorAll('a:not([href^="#"]), input[type="submit"], button[type="submit"]').forEach(e => e.addEventListener('click', (event) => sendData('EXITING')))
 
   /*
+	ASSISTANCE REQUIRED
+*/
+document.getElementById('needAssistance').addEventListener('click', (event) => {
+	sendData('ASSISTANCE')
+	toogleHelp()
+	toogleHelper()
+	alert("Assistance required")
+})
+
+/*
 ===================
 	LOGC & SENDING DATA
 ===================
@@ -202,9 +212,9 @@ console.log("test")
   const modelClickResetTime = 10 // s
 
   const modelMouseSend = 400 // px
-  const modelClickSend = 10 // clics
+  const modelClickSend = 7 // clics
 
-	const sendData = (isExiting) => {
+	const sendData = (reason) => {
 	const mouseMovementAverage = avgNumberList(averageList)
     const clickAverage = avgNumberList(clickElements)
 	const executionTime = getTime() - pageLoadedTime
@@ -216,28 +226,36 @@ console.log("test")
     console.debug('================================')
 
     let infos = []
-    if (mouseMovementAverage > modelMouseSend) {
-      infos = [...infos, {
-        name: 'Mouse-Speed',
-        value: mouseMovementAverage
-      }]
-    }
-    if (clickAverage > modelClickSend) {
-      infos = [...infos, {
-        name: 'Amount-Click',
-        value: clickAverage
-      }]
-    }
-	if(isExiting){
+	if(reason === 'EXITING'){
 		infos = [...infos, {
 			name: 'Time-Elapsed',
 			value: executionTime
 		}]
 	}
+	else if(reason === 'ASSISTANCE'){
+		infos = [...infos, {
+			name: 'Help',
+			value: 666
+		}]
+	}
+	else{
+		if (mouseMovementAverage > modelMouseSend) {
+		  infos = [...infos, {
+			name: 'Mouse-Speed',
+			value: mouseMovementAverage
+		  }]
+		}
+		if (clickAverage > modelClickSend) {
+		  infos = [...infos, {
+			name: 'Amount-Click',
+			value: clickAverage
+		  }]
+		}
+	}
 	
     if (infos && infos.length !== 0) {
       const idUser = posteId
-      const page = window.location.href
+      const page = window.location.pathname
 
       const data = {
         id: idUser,

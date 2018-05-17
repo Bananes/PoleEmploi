@@ -4,10 +4,26 @@ html, body, #main{
 	margin: 0;
 }
 
-
-#main-container, #main{
+#main-container{
 	height: 100%;
 	font-size: 22px;
+}
+
+#breadcrumbs{
+	height: 64px;
+	margin-bottom: calc(100px - 64px);
+}
+
+#main{
+	height: calc(100% - 100px);
+}
+
+#main > .row{
+	margin-bottom: 0;
+}
+
+#breadcrumbs-paths > a{
+	font-size: 35px;
 }
 
 /*
@@ -49,6 +65,11 @@ HOME
 #home{
 	width: 100%;
 	height: 100%;
+	font-size: 40px;
+}
+
+#home > div{
+	height: 75%;
 }
 
 /*
@@ -59,8 +80,6 @@ SEARCH
 
 #search{
 	height: calc(100% - 50px);
-	width: 90%;
-	margin-top: 50px;
 }
 
 #search > #input{

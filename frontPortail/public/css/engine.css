@@ -26,7 +26,8 @@ ENGINE
 #helper.large{
     /*bottom: calc(50% - 125px);*/ /* because container is 350px height */
 	bottom: 0;
-	
+	background-color: #1e3799;
+	color: white;
 	width: 250px;
 	height: 250px;
 }
@@ -111,6 +112,7 @@ ENGINE
 	animation-duration: 1s;
 	animation-fill-mode: forwards;
 	z-index: 6;
+	overflow: auto;
 }
 
 #helper-container.open > #helper-content > *{

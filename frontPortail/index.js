@@ -23,11 +23,11 @@ app.get('/', function (req, res) {
   res.render('home')
 })
 
-app.get('/form', (req, res) => {
+app.get('/formulaire', (req, res) => {
   res.render('form')
 })
 
-app.get('/search', (req, res) => {
+app.get('/recherche', (req, res) => {
   res.render('search', {results: []})
 })
 
@@ -67,7 +67,7 @@ app.post('/search', (req, res) => {
   res.render('search', {results})
 })
 
-app.get('/about', (req, res) => {
+app.get('/a_propos', (req, res) => {
   res.render('about')
 })
 app.listen(3000)
