@@ -1,6 +1,7 @@
 package com.poleemploi.back.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,12 +18,14 @@ public class StatsController {
 	
 	@RequestMapping(value = "/stats/page", method = RequestMethod.POST, consumes = "application/json" , produces = "application/json")
 	@ResponseBody
+	@CrossOrigin
 	public void statsByPage(@RequestBody StatsPage statsPage){
 		service.processPageStats(statsPage);
 	}
 	
 	@RequestMapping(value = "/stats/help", method = RequestMethod.POST, consumes = "application/json" , produces = "application/json")
 	@ResponseBody
+	@CrossOrigin
 	public void statsHelp(@RequestBody StatsPage statsPage){
 	}
 

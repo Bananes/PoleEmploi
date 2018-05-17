@@ -6,6 +6,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
@@ -34,7 +35,9 @@ public class SocketTransfer extends Thread {
 		Thread t = new Thread(new Runnable() {
 			public void run() {
 				while (isRunning == true) {
-
+					clientList = clientList.stream()//
+							.filter(socket -> !socket.isFinish())//
+							.collect(Collectors.toList());
 					try {
 						Socket client = server.accept();
 						ClientSocket clientSock = new ClientSocket(client);

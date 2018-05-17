@@ -15,6 +15,7 @@ public class ClientSocket implements Runnable {
 	private Socket sock;
 	private OutputStreamWriter writer = null;
 	private List<JSONObject> toSendAlerts = new ArrayList<>();
+	private boolean finish = false;
 
 	public ClientSocket(Socket pSock) {
 		sock = pSock;
@@ -30,27 +31,32 @@ public class ClientSocket implements Runnable {
 			boolean closeConnexion = false;
 			writer = new OutputStreamWriter(sock.getOutputStream(), StandardCharsets.UTF_8);
 			
-			while (!sock.isClosed()) {
+			while (!finish) {
 				JSONObject toSend;
 				if (toSendAlerts.size() > 0) {
 					toSend = toSendAlerts.get(0);
 					toSendAlerts.remove(0);
 					writer.write(toSend.toString()+"\n");
 					writer.flush();
-
 					if (closeConnexion) {
-						writer = null;
-						sock.close();
 						break;
 					}
 				}
 			}
+			sock.close();
+			finish = true;
+			
 		} catch (SocketException e) {
-			e.printStackTrace();
+			finish = true;
 		} catch (IOException e) {
+			finish = true;
 			e.printStackTrace();
 		}
 
+	}
+	
+	public boolean isFinish(){
+		return finish;
 	}
 
 }
