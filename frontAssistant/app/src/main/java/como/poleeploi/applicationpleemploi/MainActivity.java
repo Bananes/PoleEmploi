@@ -37,6 +37,7 @@ import java.net.*;
 import java.io.*;
 public class MainActivity extends AppCompatActivity {
     private TextView mTextMessage;
+    private TextView reslutText;
 
     private List<String> lstItems = new LinkedList<String>();
 
@@ -46,6 +47,7 @@ private   ArrayAdapter<String> adapter = null;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
        mTextMessage = (TextView) findViewById(R.id.message);
+       reslutText = (TextView) findViewById(R.id.result);
         // connexion au serveur et recupérer les données
       runThread();
       // test
@@ -137,7 +139,7 @@ private   ArrayAdapter<String> adapter = null;
 
                 @Override
                 public void run() {
-                    mTextMessage.append(text +" \n " + " \n");
+                    reslutText.append(text +" \n " + " \n");
                 }
 
             });
