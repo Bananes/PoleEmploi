@@ -13,10 +13,13 @@ const toogleHelper = () => {
 
 const toogleHelp = () => {
   const div = document.getElementById('helper-container')
+  const container = document.body
   if(div.className.indexOf('open') !== -1){
 	  div.classList.remove('open')
+	  container.style = "overflow: auto;"
   }
   else{
+	  container.style = "overflow: hidden;"
 	div.classList.add('open')
 	}
 }
