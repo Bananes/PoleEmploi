@@ -24,7 +24,7 @@
 	<script type="text/javascript" src="js/materialize.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
 	
 	<script>
 		const BACK_ENDPOINT = "{{settings.BACK_ENDPOINT}}"
@@ -41,10 +41,11 @@
 		  "content": {
 			"message": "Ce site web utilise des cookies afin de gérer au mieux votre expérience.",
 			"dismiss": "J'ai compris",
-			"link": "En savoir plus"
+			"link": "En savoir plus",
+			"href": "/about"
 		  }
 		})})
-	</script>
+		</script>
 	<script src="js/main.js"></script>
 	<script src="js/engine.js"></script>
 </body>

@@ -67,8 +67,7 @@ app.post('/search', (req, res) => {
   res.render('search', {results})
 })
 
-app.post('/test', (req, res) => {
-  console.log(req.body)
-  res.send(req.body)
+app.get('/about', (req, res) => {
+  res.render('about')
 })
 app.listen(3000)
